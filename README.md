@@ -1,3 +1,241 @@
+# Payslip Email Sender
+
+*[한국어](#한국어-버전) | English*
+
+A Node.js-based automated system for distributing PDF payslips to employees via Gmail.
+
+## Features
+
+- 📧 Automated email sending via Gmail SMTP
+- 📄 PDF payslip attachments
+- 👥 JSON-based employee information management
+- 📊 Comprehensive result logging
+- ⚠️ Error handling and notifications
+
+## Requirements
+
+- Node.js 14.0 or higher
+- Gmail account with App Password enabled
+
+## Installation
+
+### 1. Install Node.js
+
+Download and install the latest LTS version from [Node.js official website](https://nodejs.org/).
+
+### 2. Install Dependencies
+
+Run the following command in the project folder:
+
+```bash
+npm install
+```
+
+This will install the required packages:
+- `nodemailer`: Email sending
+- `dotenv`: Environment variable management
+
+## Configuration
+
+### 1. Create Gmail App Password
+
+To send emails through Gmail, you need an App Password:
+
+1. Go to [Google Account Settings](https://myaccount.google.com/)
+2. Navigate to **Security**
+3. Enable **2-Step Verification** (if not already enabled)
+4. Select **App passwords**
+5. Choose app: **Mail**, device: **Windows Computer** (or other)
+6. Copy the generated 16-character password (e.g., `abcd efgh ijkl mnop`)
+
+### 2. Set Up Environment Variables
+
+Copy `.env.example` to create `.env`:
+
+```bash
+# Windows (PowerShell)
+Copy-Item .env.example .env
+
+# Windows (CMD)
+copy .env.example .env
+
+# Mac/Linux
+cp .env.example .env
+```
+
+Edit `.env` file with your information:
+
+```env
+GMAIL_USER=your-email@gmail.com
+GMAIL_APP_PASSWORD=abcdefghijklmnop
+EMAIL_SUBJECT=January 2024 Payslip
+COMPANY_NAME=Your Company Name
+```
+
+**⚠️ Important**: Never commit the `.env` file to Git! (Already included in `.gitignore`)
+
+### 3. Configure Employee Information
+
+Edit `employees.json` with employee details:
+
+```json
+[
+  {
+    "id": "EMP001",
+    "name": "John Doe",
+    "email": "john@company.com"
+  },
+  {
+    "id": "EMP002",
+    "name": "Jane Smith",
+    "email": "jane@company.com"
+  }
+]
+```
+
+**Required fields**:
+- `id`: Employee ID (unique)
+- `name`: Employee name (must match PDF filename exactly)
+- `email`: Employee email address
+
+### 4. Prepare PDF Files
+
+Add payslip PDF files to the `payslips` folder.
+
+**Filename format**: `{name}_{YYYYMM}.pdf`
+
+Example:
+```
+payslips/
+├── John Doe_202401.pdf
+├── Jane Smith_202401.pdf
+└── ...
+```
+
+**Important**: The name portion of the filename must exactly match the `name` field in `employees.json`.
+
+## Usage
+
+Run the program:
+
+```bash
+npm start
+```
+
+or
+
+```bash
+node sendPayslips.js
+```
+
+### Example Output
+
+```
+=================================================
+📧 Automated Payslip Email Sender
+=================================================
+
+✅ Configuration validated.
+
+✅ Loaded 3 employees.
+
+✅ Gmail SMTP connection established.
+
+📤 Starting email sending...
+
+📄 Processing: John Doe (john@company.com)
+   📎 Attachment: John Doe_202401.pdf
+   ✅ Sent successfully
+
+📄 Processing: Jane Smith (jane@company.com)
+   📎 Attachment: Jane Smith_202401.pdf
+   ✅ Sent successfully
+
+=================================================
+📊 Results Summary
+=================================================
+✅ Success: 2
+❌ Failed: 0
+⚠️  PDF not found: 0
+=================================================
+
+🎉 All payslips sent successfully!
+```
+
+## Troubleshooting
+
+### "npm: command not found"
+
+Node.js is not installed or not added to PATH.
+- Install Node.js and restart your computer.
+
+### "Environment variables not set"
+
+The `.env` file is missing or incomplete.
+- Copy `.env.example` to `.env` and fill in the required information.
+
+### "Invalid login: 535-5.7.8 Username and Password not accepted"
+
+Gmail App Password is incorrect or 2-Step Verification is not enabled.
+- Regenerate the Gmail App Password and update the `.env` file.
+- Ensure 2-Step Verification is enabled.
+
+### "PDF file not found"
+
+PDF filename doesn't match the employee name in `employees.json`.
+- Filename format: `{name}_{YYYYMM}.pdf`
+- Verify the name portion matches exactly with `employees.json`.
+
+### Slow sending speed
+
+Gmail has rate limits.
+- The code includes a 1-second delay between emails.
+- Sending to many employees will take time.
+
+## Project Structure
+
+```
+payslip-sender/
+├── package.json          # Project configuration
+├── .env                  # Environment variables (not committed)
+├── .env.example          # Environment variables template
+├── .gitignore            # Git ignore list
+├── employees.json        # Employee information
+├── sendPayslips.js       # Main script
+├── payslips/             # PDF storage folder
+│   ├── .gitkeep
+│   └── *.pdf             # Payslip PDF files
+└── README.md             # This file
+```
+
+## Security Considerations
+
+1. **Protect environment variables**: Never share or commit the `.env` file.
+2. **Use App Password**: Use Gmail App Password, not your regular password.
+3. **Protect PDF files**: The `payslips/` folder is in `.gitignore`. Handle PDFs with personal information securely.
+4. **Test first**: Always test with a test email address before production use.
+
+## Future Improvements
+
+- [ ] Save sending history to CSV or database
+- [ ] Enhanced HTML email templates
+- [ ] Preview feature before sending
+- [ ] Scheduler integration (automatic monthly sending)
+- [ ] Automatic retry on failure
+- [ ] Support for other email services (Outlook, SendGrid, etc.)
+
+## License
+
+MIT License
+
+## Support
+
+If you encounter issues or have suggestions, please open an issue.
+
+---
+
+# 한국어 버전
+
 # 급여명세서 이메일 자동 전송 프로그램
 
 Node.js 기반으로 PDF 형식의 급여명세서를 직원별로 Gmail을 통해 자동으로 전송하는 프로그램입니다.
