@@ -1,0 +1,21 @@
+# 의존성
+node_modules/
+
+# 환경 변수 파일
+.env
+
+# 급여명세서 PDF 파일 (개인정보 보호)
+payslips/*.pdf
+
+# 로그 파일
+*.log
+
+# 운영체제 파일
+.DS_Store
+Thumbs.db
+
+# IDE 설정
+.vscode/
+.idea/
+*.swp
+*.swo

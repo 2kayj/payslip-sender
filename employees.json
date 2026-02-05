@@ -1,0 +1,17 @@
+[
+  {
+    "id": "EMP001",
+    "name": "홍길동",
+    "email": "hong@company.com"
+  },
+  {
+    "id": "EMP002",
+    "name": "김철수",
+    "email": "kim@company.com"
+  },
+  {
+    "id": "EMP003",
+    "name": "이영희",
+    "email": "lee@company.com"
+  }
+]

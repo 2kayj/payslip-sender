@@ -1,0 +1,21 @@
+{
+  "name": "payslip-sender",
+  "version": "1.0.0",
+  "description": "급여명세서 PDF를 직원별로 이메일로 자동 전송하는 프로그램",
+  "main": "sendPayslips.js",
+  "scripts": {
+    "start": "node sendPayslips.js"
+  },
+  "keywords": [
+    "payslip",
+    "email",
+    "pdf",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^6.9.0",
+    "dotenv": "^16.0.0"
+  }
+}
